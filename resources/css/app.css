@@ -1,0 +1,26 @@
+section.header{
+    background: darkcyan;
+    height: 300px;
+    padding-top: 90px;
+    color: #fff;
+}
+section.cards{
+    margin-top: -100px;
+}
+section.cards .card{
+    height: 250px;
+    box-shadow: 0 3px 6px #00000016;
+    border: 1px solid #eee;
+    width: 100%;
+    margin-bottom: 25px;
+    cursor: pointer;
+    overflow: hidden;
+}
+section.cards .card img{
+    height: 100%;
+    transition: 0.5s;
+
+}
+section.cards .card:hover img{
+    transform: scale(1.1);
+}
