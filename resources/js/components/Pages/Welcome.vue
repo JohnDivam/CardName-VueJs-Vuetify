@@ -19,9 +19,6 @@
             </div>
           </div>
         </section>
-
-
-
     </template>
 
     <template #footer>    
