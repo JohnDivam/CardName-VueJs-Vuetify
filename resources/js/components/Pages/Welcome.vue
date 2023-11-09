@@ -22,19 +22,18 @@
     </template>
 
     <template #footer>    
-    <v-dialog v-model="showDialog" max-width="500">
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on">Open Dialog</v-btn>
-        </template>
+    <v-dialog v-model="showDialog" width="800">
         <v-card>
           <v-card-title>
-            Dialog Title
+            Card Name 
           </v-card-title>
-          <v-card-text>
-            This is the dialog content.
+          <v-card-text style="bg-color:red">
+            <v-img :src="dialogImg" width="100%" height="400"></v-img>
+            <v-text-field  label="Your Name" v-model="dialogName" required></v-text-field>
           </v-card-text>
-          <v-card-actions>
+            <v-card-actions class="justify-right">
             <v-btn @click="showDialog = false">Close</v-btn>
+            <v-btn @click="showDialog = false" color="success">Confirm</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -69,20 +68,25 @@ export default {
       ]
 
       const showDialog = ref(false);
+      const dialogImg = ref("");
+      const dialogName = ref("");
 
       const openModal = (card)=> {
-        console.log(card.img)
+        dialogImg.value = card.img;
         showDialog.value = true;
       }
       const closeModal = ()=> {
         showDialog.value = false;
       }
+
         
       return {
           cards,
           showDialog,
           openModal,
-          closeModal
+          closeModal,
+          dialogImg,
+          dialogName
       };
     },
 }

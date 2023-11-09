@@ -15,12 +15,11 @@ section.cards .card{
     margin-bottom: 25px;
     cursor: pointer;
     overflow: hidden;
+    transition: 0.5s;
 }
 section.cards .card img{
     height: 100%;
-    transition: 0.5s;
-
 }
-section.cards .card:hover img{
+section.cards .card:hover {
     transform: scale(1.1);
 }
