@@ -23,19 +23,23 @@
 
     <template #footer>    
     <v-dialog v-model="showDialog" width="800">
+      <v-form v-model="valid" >
         <v-card>
           <v-card-title>
             Card Name 
           </v-card-title>
           <v-card-text style="bg-color:red">
-            <v-img :src="dialogImg" width="100%" height="400"></v-img>
-            <v-text-field  label="Your Name" v-model="dialogName" required></v-text-field>
+            <img :src="form.img" class="w-100" height="400" >
+            <v-text-field  label="Your Name" v-model="form.name" required width="100%"></v-text-field>
           </v-card-text>
-            <v-card-actions class="justify-right">
+          <v-card-actions class="justify-end pr-6 pt-0" >
             <v-btn @click="showDialog = false">Close</v-btn>
-            <v-btn @click="showDialog = false" color="success">Confirm</v-btn>
+            <v-btn type="submit"  :disabled="!valid" :loading="isPending"  
+              @click.prevent="generateCardName" color="success" >Submit
+            </v-btn>
           </v-card-actions>
         </v-card>
+        </v-form>
       </v-dialog>
     </template>
   </AppLayout>
@@ -50,6 +54,11 @@ export default {
     name:"Welcome",
     components:{
         AppLayout,
+    },
+    data() {
+        return {
+        valid: false,
+        };
     },
     setup() {
       const cards = [
@@ -68,25 +77,34 @@ export default {
       ]
 
       const showDialog = ref(false);
-      const dialogImg = ref("");
-      const dialogName = ref("");
+      const isPending = ref(false);
 
       const openModal = (card)=> {
-        dialogImg.value = card.img;
+        form.img = card.img;
         showDialog.value = true;
       }
       const closeModal = ()=> {
         showDialog.value = false;
       }
 
+       const form  = reactive({
+            img:'',
+            name:'',
+        });
+     
+      const generateCardName = async() => {
+           if (isPending.value) return;
+            generateCardNameService(form, isPending, root)
+      };
         
       return {
           cards,
           showDialog,
           openModal,
           closeModal,
-          dialogImg,
-          dialogName
+          form,
+          generateCardName,
+          isPending,
       };
     },
 }
