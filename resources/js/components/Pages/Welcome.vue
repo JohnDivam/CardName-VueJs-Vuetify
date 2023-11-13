@@ -23,19 +23,26 @@
 
     <template #footer>    
     <v-dialog v-model="showDialog" width="800">
-      <v-form v-model="valid" >
+      <v-form ref="myform" v-model="valid" :lazy-validation="false">
         <v-card>
           <v-card-title>
             Card Name 
           </v-card-title>
           <v-card-text style="bg-color:red">
             <img :src="form.img" class="w-100" height="400" >
-            <v-text-field  label="Your Name" v-model="form.name" required width="100%"></v-text-field>
+            <v-text-field  
+            label="Enter Your Name" 
+            v-model="form.name"  
+            variant="outlined" 
+            prepend-inner-icon="mdi-account-outline"
+            class="mt-3"
+            required
+            ></v-text-field>
           </v-card-text>
           <v-card-actions class="justify-end pr-6 pt-0" >
-            <v-btn @click="showDialog = false">Close</v-btn>
+            <v-btn @click="showDialog = false"  color="grey-lighten-3" variant="flat">Cancel</v-btn>
             <v-btn type="submit"  :disabled="!valid" :loading="isPending"  
-              @click.prevent="generateCardName" color="success" >Submit
+              @click.prevent="generateCardName" color="indigo-darken-3" variant="flat" >Submit
             </v-btn>
           </v-card-actions>
         </v-card>
