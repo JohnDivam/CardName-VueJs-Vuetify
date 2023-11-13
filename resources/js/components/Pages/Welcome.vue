@@ -22,21 +22,31 @@
     </template>
 
     <template #footer>    
-    <v-dialog v-model="showDialog" max-width="500">
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on">Open Dialog</v-btn>
-        </template>
+    <v-dialog v-model="showDialog" width="800">
+      <v-form ref="myform" v-model="valid" :lazy-validation="false">
         <v-card>
           <v-card-title>
-            Dialog Title
+            Card Name 
           </v-card-title>
-          <v-card-text>
-            This is the dialog content.
+          <v-card-text style="bg-color:red">
+            <img :src="form.img" class="w-100" height="400" >
+            <v-text-field  
+            label="Enter Your Name" 
+            v-model="form.name"  
+            variant="outlined" 
+            prepend-inner-icon="mdi-account-outline"
+            class="mt-3"
+            required
+            ></v-text-field>
           </v-card-text>
-          <v-card-actions>
-            <v-btn @click="showDialog = false">Close</v-btn>
+          <v-card-actions class="justify-end pr-6 pt-0" >
+            <v-btn @click="showDialog = false"  color="grey-lighten-3" variant="flat">Cancel</v-btn>
+            <v-btn type="submit"  :disabled="!valid" :loading="isPending"  
+              @click.prevent="generateCardName" color="indigo-darken-3" variant="flat" >Submit
+            </v-btn>
           </v-card-actions>
         </v-card>
+        </v-form>
       </v-dialog>
     </template>
   </AppLayout>
@@ -51,6 +61,11 @@ export default {
     name:"Welcome",
     components:{
         AppLayout,
+    },
+    data() {
+        return {
+        valid: false,
+        };
     },
     setup() {
       const cards = [
@@ -69,20 +84,34 @@ export default {
       ]
 
       const showDialog = ref(false);
+      const isPending = ref(false);
 
       const openModal = (card)=> {
-        console.log(card.img)
+        form.img = card.img;
         showDialog.value = true;
       }
       const closeModal = ()=> {
         showDialog.value = false;
       }
+
+       const form  = reactive({
+            img:'',
+            name:'',
+        });
+     
+      const generateCardName = async() => {
+           if (isPending.value) return;
+            generateCardNameService(form, isPending, root)
+      };
         
       return {
           cards,
           showDialog,
           openModal,
-          closeModal
+          closeModal,
+          form,
+          generateCardName,
+          isPending,
       };
     },
 }
