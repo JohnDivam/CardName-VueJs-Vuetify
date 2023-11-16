@@ -22,7 +22,7 @@
     </template>
 
     <template #footer>    
-    <v-dialog v-model="showDialog" width="800">
+    <v-dialog v-model="showDialog" width="800" scrollable>
       <v-form ref="myform" v-model="valid" :lazy-validation="false">
         <v-card>
           <v-card-title>
@@ -36,7 +36,7 @@
             variant="outlined" 
             prepend-inner-icon="mdi-account-outline"
             class="mt-3"
-            required
+            :rules="[required,name]"
             ></v-text-field>
           </v-card-text>
           <v-card-actions class="justify-end pr-6 pt-0" >
@@ -57,7 +57,12 @@
 <script>
 import { computed, reactive, ref, getCurrentInstance, watchEffect } from "vue";
 import AppLayout from "@/components/Layouts/AppLayout.vue"
+import {generateCardNameService}  from "@/services/GenerateCardNameService.js"
+import { required, name} from "@/Mixins/Validations.js";
+
 export default {
+  watch: {
+  },
     name:"Welcome",
     components:{
         AppLayout,
@@ -68,6 +73,8 @@ export default {
         };
     },
     setup() {
+      const root = getCurrentInstance().proxy;
+
       const cards = [
         {id:1 ,"img":"assets/images/cards/card1.jpg"},
         {id:2 ,"img":"assets/images/cards/card2.jpg"},
@@ -100,8 +107,8 @@ export default {
         });
      
       const generateCardName = async() => {
-           if (isPending.value) return;
-            generateCardNameService(form, isPending, root)
+          if (isPending.value) return;
+          generateCardNameService(form, isPending, root)
       };
         
       return {
@@ -112,6 +119,8 @@ export default {
           form,
           generateCardName,
           isPending,
+          required: (value) => required(value),
+          name: (value) => name(value),
       };
     },
 }
