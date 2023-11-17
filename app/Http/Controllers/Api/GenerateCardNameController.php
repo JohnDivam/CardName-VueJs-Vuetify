@@ -14,11 +14,11 @@ class GenerateCardNameController extends Controller
             'img'=>'required|string|starts_with:assets/images/cards/',
         ]);
 
-        sleep(2);
+        sleep(1);
 
         $img = Image::make(public_path($request->img));  
 
-         $img->text($request->name, (($img->width() / 2) + 20 ) , $img->height() - 40, function($font) use($img){  
+         $img->text($request->name, ($img->width() / 2), $img->height() - 40, function($font) use($img){  
             $font->file(public_path('assets/fonts/Roboto-Bold.ttf'));  
             $font->size($img->height() * 5 / 100);  
             $font->color('#000000');  

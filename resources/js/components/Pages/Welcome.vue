@@ -4,7 +4,7 @@
         <section class="header">
             <div class="container">
               <h2 class="text-center">
-                Custom Name Card | Make Your Own Card
+                Ead Card | Make Your Own Card
               </h2>
             </div>
         </section>
