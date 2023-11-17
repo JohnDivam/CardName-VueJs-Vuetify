@@ -4,7 +4,7 @@
         <section class="header">
             <div class="container">
               <h2 class="text-center">
-                Custom Name Card | Make Your Own Card
+                Ead Card | Make Your Own Card
               </h2>
             </div>
         </section>
@@ -29,7 +29,7 @@
             Card Name 
           </v-card-title>
           <v-card-text style="bg-color:red">
-            <img :src="form.img" class="w-100" height="400" >
+            <img :src="form.img" class="mx-auto d-block shadow" height="400" >
             <v-text-field  
             label="Enter Your Name" 
             v-model="form.name"  
@@ -78,8 +78,7 @@ export default {
       const cards = [
         {id:1 ,"img":"assets/images/cards/card1.jpg"},
         {id:2 ,"img":"assets/images/cards/card2.jpg"},
-        {id:3 ,"img":"assets/images/cards/card3.webp"},
-        {id:4 ,"img":"assets/images/cards/card4.jpg"},
+        {id:3 ,"img":"assets/images/cards/card3.jpg"},
         {id:5 ,"img":"assets/images/cards/card5.jpg"},
         {id:6 ,"img":"assets/images/cards/card6.jpg"},
         {id:7 ,"img":"assets/images/cards/card7.jpg"},

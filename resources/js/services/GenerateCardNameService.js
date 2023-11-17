@@ -19,6 +19,13 @@ export async function generateCardNameService(form, isPending, root){
             position: "top-right",
             autoClose: 3000,
         });
+
+        const link = document.createElement('a');
+        link.href = response.data.imagesrc;
+        link.download = response.data.imagename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
     
     } catch ({response}) {
