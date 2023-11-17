@@ -13,6 +13,5 @@ use App\Http\Controllers\SiteController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::any('{any?}',[SiteController::class,'welcome'])->where(['any' => '.*'])->name('welcome');
 
